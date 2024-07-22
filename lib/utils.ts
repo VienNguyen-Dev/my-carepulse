@@ -9,6 +9,9 @@ export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
 
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
+//Format fist letter uppercase
+export const formatToUpperCase = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
+
 // FORMAT DATE TIME
 export const formatDateTime = (dateString: Date | string) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
