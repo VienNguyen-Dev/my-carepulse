@@ -1,9 +1,11 @@
 import AppointmentForm from "@/components/form/AppointmentForm";
 import { getPatient } from "@/lib/actions/patient.actions";
 import Image from "next/image";
+import * as Sentry from "@sentry/nextjs";
 
 const Appointment = async ({ params: { userId } }: SearchParamProps) => {
   const patient = await getPatient(userId);
+  Sentry.metrics.set("user_view_new-appointment", patient.name);
   return (
     <div className=" h-screen max-h-screen flex ">
       <section className=" remove-scrollbar container">

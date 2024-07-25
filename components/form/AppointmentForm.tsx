@@ -25,8 +25,8 @@ const AppointmentForm = ({
   userId: string;
   type: "create" | "schedule" | "cancel";
   patientId: string;
-  appointment: Appointment;
-  setOpen: (open: boolean) => void;
+  appointment?: Appointment;
+  setOpen?: (open: boolean) => void;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -38,8 +38,8 @@ const AppointmentForm = ({
       primaryPhysician: appointment ? appointment.primaryPhysician : "",
       schedule: appointment ? new Date(appointment.schedule) : new Date(Date.now()),
       reason: appointment ? appointment.reason : "",
-      note: appointment.note || "",
-      cancellationReason: appointment.cancellationReason || "",
+      note: appointment?.note || "",
+      cancellationReason: appointment?.cancellationReason || "",
     },
   });
 
@@ -74,7 +74,7 @@ const AppointmentForm = ({
         if (appointment) router.push(`/patients/${userId}/new-appointment/success?appointmendId=${appointment.$id}`);
       } else {
         const appointmentData = {
-          appointmentId: appointment.$id!,
+          appointmentId: appointment?.$id!,
           userId,
           appointment: {
             primaryPhysician: values.primaryPhysician,
@@ -88,7 +88,7 @@ const AppointmentForm = ({
 
         const updatedAppointment = await updateAppointment(appointmentData);
         if (updatedAppointment) {
-          setOpen(false);
+          setOpen && setOpen(false);
           form.reset();
         }
       }
