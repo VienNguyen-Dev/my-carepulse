@@ -1,23 +1,13 @@
 "use client";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { decryptKey, encryptKey } from "@/lib/utils";
 
 const PasskeyModal = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const [passkey, setPasskey] = useState("");
   const [error, setError] = useState("");
@@ -33,8 +23,8 @@ const PasskeyModal = () => {
     const accessKey = encryptedKey && decryptKey(encryptedKey);
     if (path) {
       if (accessKey === process.env.NEXT_PUBLIC_PASSKEY) {
-        router.push("/admin");
         setOpen(false);
+        router.push("/admin");
       } else {
         setOpen(true);
       }
@@ -48,6 +38,7 @@ const PasskeyModal = () => {
         //encryot Pass key
         const encryptedKey = encryptKey(passkey);
         localStorage.setItem("accessKey", encryptedKey);
+        setOpen(false);
       } else {
         setError("Invalid passkey. Please try again.");
       }

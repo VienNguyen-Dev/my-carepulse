@@ -30,11 +30,11 @@ const Success = async ({ params: { userId }, searchParams }: SearchParamProps) =
         </div>
         <section className="request-details">
           <p className=" text-dark-600">Requested appointment details: </p>
-          <div className=" flex items-center gap-2  border border-dark-500 px-2 py-2 bg-dark-400 rounded-md">
+          <div className=" flex items-center gap-3  ">
             <Image src={doctor?.image!} alt="doctor" width={24} height={24} className=" h-10 w-fit" />
             <p>Dr. {doctor?.name}</p>
           </div>
-          <div className=" flex items-center gap-2 text-dark-600 ">
+          <div className=" flex items-center gap-2">
             <Image src={"/assets/icons/calendar.svg"} alt="calendar" width={24} height={24} />
             <p>{formatDateTime(appointment.schedule).dateTime}</p>
           </div>
